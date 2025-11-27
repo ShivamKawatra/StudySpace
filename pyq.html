@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PYQs - StudySpace@DiplomaCSE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: rgb(19, 4, 87);
+      --secondary-bg: rgb(179, 206, 235);
+      --text-white: #ffffff;
+      --text-dark: #333333;
+      --accent-color: #4f46e5;
+      --gradient-bg: linear-gradient(135deg, rgb(19, 4, 87) 0%, rgb(67, 56, 202) 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--gradient-bg);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    .main-header {
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .main-header h1 {
+      color: var(--text-white);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 0;
+    }
+
+    /* Navigation Styles */
+    .navbar {
+      background: var(--secondary-bg) !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem 0;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--text-dark) !important;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-dark) !important;
+      font-weight: 500;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem !important;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      background-color: var(--accent-color);
+      color: var(--text-white) !important;
+      transform: translateY(-2px);
+    }
+
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 3rem 0;
+      min-height: calc(100vh - 200px);
+    }
+
+    .page-title {
+      text-align: center;
+      color: var(--text-white);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Semester Cards */
+    .semester-card {
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      padding: 2rem;
+      text-align: center;
+      color: var(--text-white);
+      transition: all 0.3s ease;
+      height: 100%;
+      text-decoration: none;
+      display: block;
+      margin-bottom: 1.5rem;
+    }
+
+    .semester-card:hover {
+      transform: translateY(-10px);
+      background: rgba(255, 255, 255, 0.15);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+      color: var(--text-white);
+      text-decoration: none;
+    }
+
+    .semester-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+      display: block;
+    }
+
+    .semester-title {
+      font-size: clamp(1.2rem, 3vw, 1.5rem);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .semester-subtitle {
+      opacity: 0.8;
+      font-size: 0.9rem;
+    }
+
+    /* Color variations for different semesters */
+    .semester-1 .semester-icon { color: #e74c3c; }
+    .semester-2 .semester-icon { color: #3498db; }
+    .semester-3 .semester-icon { color: #e67e22; }
+    .semester-4 .semester-icon { color: #9b59b6; }
+    .semester-5 .semester-icon { color: #e91e63; }
+    .semester-6 .semester-icon { color: #2c3e50; }
+
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .content-section {
+        padding: 2rem 0;
+      }
+
+      .semester-card {
+        padding: 1.5rem;
+        margin-bottom: 1rem;
+      }
+
+      .semester-icon {
+        font-size: 2.5rem;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .semester-card {
+        padding: 1.25rem;
+      }
+
+      .semester-icon {
+        font-size: 2rem;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3730a3;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container-fluid">
+      <div class="row align-items-center py-2">
+        <div class="col">
+          <h1 class="text-center">StudySpace</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap me-2"></i>Diploma CSE</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="syllabus.html">
+              <i class="fas fa-book me-1"></i>Syllabus
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notes.html">
+              <i class="fas fa-sticky-note me-1"></i>Notes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lectures.html">
+              <i class="fas fa-video me-1"></i>Lectures
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="pyq.html">
+              <i class="fas fa-question-circle me-1"></i>PYQs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">
+              <i class="fas fa-info-circle me-1"></i>About
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="contact.html">
+              <i class="fas fa-envelope me-1"></i>Contact
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="terms.html">
+              <i class="fas fa-file-contract me-1"></i>Terms
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content Section -->
+  <section class="content-section">
+    <div class="container">
+      <h1 class="page-title floating">Previous Year Questions</h1>
+            
+      <div class="row g-4">
+        <div class="col-lg-4 col-md-6">
+          <a href="first_sem_pyq.html" class="semester-card semester-1">
+            <i class="fas fa-file-alt semester-icon"></i>
+            <h3 class="semester-title">Semester 1 PYQs</h3>
+            <p class="semester-subtitle">Foundation courses question papers</p>
+          </a>
+        </div>
+                
+        <div class="col-lg-4 col-md-6">
+          <a href="second_sem_pyq.html" class="semester-card semester-2">
+            <i class="fas fa-clipboard-list semester-icon"></i>
+            <h3 class="semester-title">Semester 2 PYQs</h3>
+            <p class="semester-subtitle">Programming fundamentals papers</p>
+          </a>
+        </div>
+                
+        <div class="col-lg-4 col-md-6">
+          <a href="third_sem_pyq.html" class="semester-card semester-3">
+            <i class="fas fa-tasks semester-icon"></i>
+            <h3 class="semester-title">Semester 3 PYQs</h3>
+            <p class="semester-subtitle">Data structures exam papers</p>
+          </a>
+        </div>
+                
+        <div class="col-lg-4 col-md-6">
+          <a href="fourth_sem_pyq.html" class="semester-card semester-4">
+            <i class="fas fa-list-alt semester-icon"></i>
+            <h3 class="semester-title">Semester 4 PYQs</h3>
+            <p class="semester-subtitle">Networks and systems papers</p>
+          </a>
+        </div>
+                
+        <div class="col-lg-4 col-md-6">
+          <a href="fifth_sem_pyq.html" class="semester-card semester-5">
+            <i class="fas fa-scroll semester-icon"></i>
+            <h3 class="semester-title">Semester 5 PYQs</h3>
+            <p class="semester-subtitle">Advanced programming papers</p>
+          </a>
+        </div>
+                
+        <div class="col-lg-4 col-md-6">
+          <a href="sixth_sem_pyq.html" class="semester-card semester-6">
+            <i class="fas fa-file-contract semester-icon"></i>
+            <h3 class="semester-title">Semester 6 PYQs</h3>
+            <p class="semester-subtitle">Final project exam papers</p>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+    
+  <script>
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(179, 206, 235, 0.95)';
+        navbar.style.backdropFilter = 'blur(10px)';
+      } else {
+        navbar.style.background = 'rgb(179, 206, 235)';
+        navbar.style.backdropFilter = 'none';
+      }
+    });
+
+    // Add loading animation
+    window.addEventListener('load', function() {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.5s ease-in-out';
+      setTimeout(() => {
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // Add hover effects for semester cards
+    document.querySelectorAll('.semester-card').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-10px) scale(1.02)';
+      });
+            
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0) scale(1)';
+      });
+    });
+  </script>
+</body>
+
+</html>

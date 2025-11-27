@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contact - StudySpace@DiplomaCSE</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --primary-bg: rgb(19, 4, 87);
+      --secondary-bg: rgb(179, 206, 235);
+      --text-white: #ffffff;
+      --text-dark: #333333;
+      --accent-color: #4f46e5;
+      --gradient-bg: linear-gradient(135deg, rgb(19, 4, 87) 0%, rgb(67, 56, 202) 100%);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: var(--gradient-bg);
+      min-height: 100vh;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      overflow-x: hidden;
+    }
+
+    /* Header Styles */
+    .main-header {
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .main-header h1 {
+      color: var(--text-white);
+      font-weight: 700;
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+      margin: 0;
+    }
+
+    /* Navigation Styles */
+    .navbar {
+      background: var(--secondary-bg) !important;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      padding: 0.75rem 0;
+    }
+
+    .navbar-brand {
+      font-weight: 600;
+      font-size: 1.25rem;
+      color: var(--text-dark) !important;
+    }
+
+    .navbar-nav .nav-link {
+      color: var(--text-dark) !important;
+      font-weight: 500;
+      margin: 0 0.5rem;
+      padding: 0.5rem 1rem !important;
+      border-radius: 0.375rem;
+      transition: all 0.3s ease;
+    }
+
+    .navbar-nav .nav-link:hover,
+    .navbar-nav .nav-link.active {
+      background-color: var(--accent-color);
+      color: var(--text-white) !important;
+      transform: translateY(-2px);
+    }
+
+    .navbar-toggler {
+      border: none;
+      padding: 0.25rem 0.5rem;
+    }
+
+    .navbar-toggler:focus {
+      box-shadow: none;
+    }
+
+    /* Content Section */
+    .content-section {
+      padding: 3rem 0;
+      min-height: calc(100vh - 200px);
+    }
+
+    .page-title {
+      text-align: center;
+      color: var(--text-white);
+      font-size: clamp(2rem, 5vw, 3rem);
+      font-weight: 700;
+      margin-bottom: 3rem;
+      text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Contact Content */
+    .contact-card {
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      padding: 2.5rem;
+      color: var(--text-white);
+      margin-bottom: 2rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+    }
+
+    .contact-card h3 {
+      color: var(--accent-color);
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 1rem;
+    }
+
+    .contact-card p {
+      line-height: 1.8;
+      opacity: 0.9;
+      margin-bottom: 1rem;
+    }
+
+    /* Contact Form */
+    .contact-form {
+      background: rgba(255, 255, 255, 0.1);
+      -webkit-backdrop-filter: blur(10px);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 1rem;
+      padding: 2.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      color: var(--text-white);
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-control {
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      border-radius: 0.5rem;
+      color: var(--text-white);
+      padding: 0.75rem 1rem;
+    }
+
+    .form-control:focus {
+      background: rgba(255, 255, 255, 0.15);
+      border-color: var(--accent-color);
+      box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+      color: var(--text-white);
+    }
+
+    .form-control::placeholder {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .btn-primary {
+      background: var(--accent-color);
+      border: none;
+      padding: 0.75rem 2rem;
+      border-radius: 0.5rem;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      background: #3730a3;
+      transform: translateY(-2px);
+    }
+
+    /* Contact Info */
+    .contact-info {
+      display: flex;
+      align-items: center;
+      margin-bottom: 1.5rem;
+      padding: 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 0.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .contact-info:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .contact-info i {
+      font-size: 1.5rem;
+      color: var(--accent-color);
+      margin-right: 1rem;
+      width: 30px;
+      text-align: center;
+    }
+
+    .contact-info-content h5 {
+      margin: 0;
+      font-weight: 600;
+      color: var(--text-white);
+    }
+
+    .contact-info-content p {
+      margin: 0;
+      opacity: 0.8;
+      color: var(--text-white);
+    }
+
+    /* Social Links */
+    .social-links {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .social-link {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 50px;
+      height: 50px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 50%;
+      color: var(--text-white);
+      text-decoration: none;
+      transition: all 0.3s ease;
+    }
+
+    .social-link:hover {
+      background: var(--accent-color);
+      color: var(--text-white);
+      transform: translateY(-3px);
+    }
+
+    /* Floating Animation */
+    @keyframes float {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+    }
+
+    .floating {
+      animation: float 4s ease-in-out infinite;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .content-section {
+        padding: 2rem 0;
+      }
+
+      .contact-card,
+      .contact-form {
+        padding: 2rem 1.5rem;
+      }
+
+      .social-links {
+        gap: 0.5rem;
+      }
+
+      .social-link {
+        width: 45px;
+        height: 45px;
+      }
+    }
+
+    @media (max-width: 576px) {
+      .contact-card,
+      .contact-form {
+        padding: 1.5rem 1rem;
+      }
+
+      .contact-info {
+        flex-direction: column;
+        text-align: center;
+      }
+
+      .contact-info i {
+        margin-right: 0;
+        margin-bottom: 0.5rem;
+      }
+    }
+
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--accent-color);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: #3730a3;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <header class="main-header">
+    <div class="container-fluid">
+      <div class="row align-items-center py-2">
+        <div class="col">
+          <h1 class="text-center">StudySpace</h1>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Navigation -->
+  <nav class="navbar navbar-expand-lg">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><i class="fas fa-graduation-cap me-2"></i>Diploma CSE</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link" href="index.html">
+              <i class="fas fa-home me-1"></i>Home
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="syllabus.html">
+              <i class="fas fa-book me-1"></i>Syllabus
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="notes.html">
+              <i class="fas fa-sticky-note me-1"></i>Notes
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="lectures.html">
+              <i class="fas fa-video me-1"></i>Lectures
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="pyq.html">
+              <i class="fas fa-question-circle me-1"></i>PYQs
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="about.html">
+              <i class="fas fa-info-circle me-1"></i>About
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link active" aria-current="page" href="contact.html">
+              <i class="fas fa-envelope me-1"></i>Contact
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="terms.html">
+              <i class="fas fa-file-contract me-1"></i>Terms
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Content Section -->
+  <section class="content-section">
+    <div class="container">
+      <h1 class="page-title floating">Contact Us</h1>
+
+      <div class="row">
+        <div class="col-lg-8 mx-auto">
+          <div class="contact-card">
+            <h3><i class="fas fa-comments me-2"></i>Get in Touch</h3>
+            <p>
+              We'd love to hear from you! Whether you have questions, suggestions, or need help with our platform,
+              our team is here to assist you. Feel free to reach out to us through any of the methods below.
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-lg-6">
+          <div class="contact-form">
+            <h3 class="text-white mb-4"><i class="fas fa-paper-plane me-2"></i>Send us a Message</h3>
+            <form>
+              <div class="mb-3">
+                <label for="name" class="form-label">Full Name</label>
+                <input type="text" class="form-control" id="name" placeholder="Enter your full name" required>
+              </div>
+              <div class="mb-3">
+                <label for="email" class="form-label">Email Address</label>
+                <input type="email" class="form-control" id="email" placeholder="Enter your email address" required>
+              </div>
+              <div class="mb-3">
+                <label for="subject" class="form-label">Subject</label>
+                <input type="text" class="form-control" id="subject" placeholder="Enter the subject" required>
+              </div>
+              <div class="mb-3">
+                <label for="message" class="form-label">Message</label>
+                <textarea class="form-control" id="message" rows="5" placeholder="Enter your message" required></textarea>
+              </div>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-send me-2"></i>Send Message
+              </button>
+            </form>
+          </div>
+        </div>
+
+        <div class="col-lg-6">
+          <div class="contact-card">
+            <h3><i class="fas fa-info-circle me-2"></i>Contact Information</h3>
+            
+            <div class="contact-info">
+              <i class="fas fa-envelope"></i>
+              <div class="contact-info-content">
+                <h5>Email</h5>
+                <p>support@studyspace.edu</p>
+              </div>
+            </div>
+
+            <div class="contact-info">
+              <i class="fas fa-phone"></i>
+              <div class="contact-info-content">
+                <h5>Phone</h5>
+                <p>+91 98765 43210</p>
+              </div>
+            </div>
+
+            <div class="contact-info">
+              <i class="fas fa-map-marker-alt"></i>
+              <div class="contact-info-content">
+                <h5>Address</h5>
+                <p>StudySpace Education Hub<br>Tech City, India</p>
+              </div>
+            </div>
+
+            <div class="contact-info">
+              <i class="fas fa-clock"></i>
+              <div class="contact-info-content">
+                <h5>Support Hours</h5>
+                <p>Monday - Friday: 9:00 AM - 6:00 PM<br>Saturday: 10:00 AM - 4:00 PM</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="contact-card">
+            <h3><i class="fas fa-share-alt me-2"></i>Follow Us</h3>
+            <p>Stay connected with us on social media for updates and announcements.</p>
+            <div class="social-links">
+              <a href="#" class="social-link" title="Facebook">
+                <i class="fab fa-facebook-f"></i>
+              </a>
+              <a href="#" class="social-link" title="Twitter">
+                <i class="fab fa-twitter"></i>
+              </a>
+              <a href="#" class="social-link" title="LinkedIn">
+                <i class="fab fa-linkedin-in"></i>
+              </a>
+              <a href="#" class="social-link" title="Instagram">
+                <i class="fab fa-instagram"></i>
+              </a>
+              <a href="#" class="social-link" title="YouTube">
+                <i class="fab fa-youtube"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Scripts -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"
+    integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz"
+    crossorigin="anonymous"></script>
+
+  <script>
+    // Add scroll effect to navbar
+    window.addEventListener('scroll', function() {
+      const navbar = document.querySelector('.navbar');
+      if (window.scrollY > 50) {
+        navbar.style.background = 'rgba(179, 206, 235, 0.95)';
+        navbar.style.backdropFilter = 'blur(10px)';
+      } else {
+        navbar.style.background = 'rgb(179, 206, 235)';
+        navbar.style.backdropFilter = 'none';
+      }
+    });
+
+    // Add loading animation
+    window.addEventListener('load', function() {
+      document.body.style.opacity = '0';
+      document.body.style.transition = 'opacity 0.5s ease-in-out';
+      setTimeout(() => {
+        document.body.style.opacity = '1';
+      }, 100);
+    });
+
+    // Form submission handler
+    document.querySelector('form').addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      // Get form data
+      const name = document.getElementById('name').value;
+      const email = document.getElementById('email').value;
+      const subject = document.getElementById('subject').value;
+      const message = document.getElementById('message').value;
+      
+      // Simple validation
+      if (name && email && subject && message) {
+        alert('Thank you for your message! We will get back to you soon.');
+        this.reset();
+      } else {
+        alert('Please fill in all fields.');
+      }
+    });
+
+    // Add hover effects for contact cards
+    document.querySelectorAll('.contact-card, .contact-form').forEach(card => {
+      card.addEventListener('mouseenter', function() {
+        this.style.transform = 'translateY(-5px)';
+        this.style.boxShadow = '0 10px 30px rgba(0, 0, 0, 0.2)';
+      });
+
+      card.addEventListener('mouseleave', function() {
+        this.style.transform = 'translateY(0)';
+        this.style.boxShadow = 'none';
+      });
+    });
+  </script>
+</body>
+
+</html>
